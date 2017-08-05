@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.LoginActivity">
+
+    <Button
+        android:id="@+id/pedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layout_margin="15dp"
+        android:text="Realizar un pedido"
+        android:layout_marginBottom="8dp"
+        tools:layout_editor_absoluteX="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <com.example.miguelsoler.mipedidos.Types.FontText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="Mi Pedido"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="60sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:id="@+id/fontText2" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/pedido"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/fontText2">
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/campo_codigo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <EditText
+                android:id="@+id/campo_codigovendedor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Código de Vendedor:"
+                android:inputType="text"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/campo_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <EditText
+                android:id="@+id/campo_nombrevendedor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nombres:"
+                android:inputType="text"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/campo_apellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <EditText
+                android:id="@+id/campo_apellidovendedor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Apellidos:"
+                android:inputType="text"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/campo_correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <EditText
+                android:id="@+id/campo_correovendedor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Correo:"
+                android:inputType="text"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/campo_celular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <EditText
+                android:id="@+id/campo_celularvendedor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Celular:"
+                android:inputType="text"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/campo_imei"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/campo_celularimei"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="IMEI:"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/campo_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="2">
+
+                <EditText
+                    android:id="@+id/campo_celulardevice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Device:"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
