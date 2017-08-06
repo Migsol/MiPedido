@@ -117,7 +117,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                     }
                 });
 
-                ar.setCantidad(C[0]);
                 cantidad.setText(String.valueOf(C[0]));
                 Costos.setText(Costo);
                 Nombre.setText(Name);
@@ -127,13 +126,16 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                 guardar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        ar.setCantidad(Integer.parseInt(cantidad.getText().toString()));
+
                         try {
                             boolean update = false;
                             Dao<Carrito, Integer> dao;
                             dao = getHelper().getCarritoDao();
                             for (Carrito car : dao) {
                                 if (car.getNombre().equals(Name)) {
-                                    int newC = C[0] + car.getCantidad();
+                                    int newC = Integer.parseInt(cantidad.getText().toString()) + car.getCantidad();
                                     Log.e("Int:", String.valueOf(newC));
                                     UpdateBuilder<Carrito, Integer> updateBuilder = dao.updateBuilder();
                                     updateBuilder.updateColumnValue("cantidad", newC);

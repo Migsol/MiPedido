@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -36,7 +35,7 @@ import java.util.List;
  * |__________________________________________________________________
  *******************************************************************************************/
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity {
 
     private DBHelper databaseHelper = null;
     private EditText Code, Device, IMEI, Nombre, Apellido, Email, Celular;
@@ -58,25 +57,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         session = new SessionManager(this);
         databaseHelper = OpenHelperManager.getHelper(this, DBHelper.class);
 
-        requestPermissions2();
+        if(session.isLoggedIn())
+        {
+            Intent i = new Intent(this, Splash_Activity.class);
+            startActivity(i);
+            this.finish();
 
-        Code = (EditText) findViewById(R.id.campo_codigovendedor);
-        Nombre = (EditText) findViewById(R.id.campo_nombrevendedor);
-        Apellido = (EditText) findViewById(R.id.campo_apellidovendedor);
-        Email = (EditText) findViewById(R.id.campo_correovendedor);
-        Celular = (EditText) findViewById(R.id.campo_celularvendedor);
-        Device = (EditText) findViewById(R.id.campo_celulardevice);
-        IMEI = (EditText) findViewById(R.id.campo_celularimei);
+        } else
+        {
 
-        IMEI.setVisibility(View.GONE);
-        Device.setVisibility(View.GONE);
+            requestPermissions2();
 
-        pedido = (Button) findViewById(R.id.pedido);
-        pedido.setOnClickListener(this);
+            Code = (EditText) findViewById(R.id.campo_codigovendedor);
+            Nombre = (EditText) findViewById(R.id.campo_nombrevendedor);
+            Apellido = (EditText) findViewById(R.id.campo_apellidovendedor);
+            Email = (EditText) findViewById(R.id.campo_correovendedor);
+            Celular = (EditText) findViewById(R.id.campo_celularvendedor);
+            Device = (EditText) findViewById(R.id.campo_celulardevice);
+            IMEI = (EditText) findViewById(R.id.campo_celularimei);
+
+            IMEI.setVisibility(View.GONE);
+            Device.setVisibility(View.GONE);
+
+            pedido = (Button) findViewById(R.id.pedido);
+            pedido.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onSavePressed();
+                }
+            });
+        }
     }
 
     private void requestPermissions2() {
-
         final List<String> requiredSDKPermissions = new ArrayList<String>();
         requiredSDKPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         requiredSDKPermissions.add(Manifest.permission.READ_PHONE_STATE);
@@ -86,26 +99,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 REQUEST_CODE_ASK_PERMISSIONS);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.pedido:
-                CodeVndor = Code.getText().toString();
-                Name = Nombre.getText().toString();
-                Surname= Apellido.getText().toString();
-                emailname = Email.getText().toString();
-                Cel = Celular.getText().toString();
+    public void onSavePressed()
+    {
+        CodeVndor = Code.getText().toString();
+        Name = Nombre.getText().toString();
+        Surname= Apellido.getText().toString();
+        emailname = Email.getText().toString();
+        Cel = Celular.getText().toString();
 
-                TelephonyManager manager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-                String myIMEI = manager.getDeviceId();
-                Device.setText(Config.getDeviceName());
-                IMEI.setText(myIMEI);
+        TelephonyManager manager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String myIMEI = manager.getDeviceId();
+        Device.setText(Config.getDeviceName());
+        IMEI.setText(myIMEI);
 
-                Imeicode = IMEI.getText().toString();
-                devicename = Device.getText().toString();
+        Imeicode = IMEI.getText().toString();
+        devicename = Device.getText().toString();
 
-                session.createLoginSession
-                        (CodeVndor,
+        session.createLoginSession
+                (CodeVndor,
                         Name,
                         Surname,
                         emailname,
@@ -113,19 +124,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Imeicode,
                         devicename);
 
-                Insert(CodeVndor,
-                        Name,
-                        Surname,
-                        emailname,
-                        Cel,
-                        Imeicode,
-                        devicename);
+        Insert(CodeVndor,
+                Name,
+                Surname,
+                emailname,
+                Cel,
+                Imeicode,
+                devicename);
 
-                Intent i = new Intent(this, Splash_Activity.class);
-                startActivity(i);
-                this.finish();
-                break;
-        }
+        Intent i = new Intent(this, Splash_Activity.class);
+        startActivity(i);
+        this.finish();
     }
 
     public void Insert(String code,String name, String surname, String email, String cel, String imei, String device){

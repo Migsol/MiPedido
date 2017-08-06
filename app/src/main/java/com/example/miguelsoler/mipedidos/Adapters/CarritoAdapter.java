@@ -62,7 +62,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.RecordVi
 
         final String Name = articulos.getNombre();
         String Desc = articulos.getDescripcion();
-        final String Costo = String.valueOf(articulos.getCosto());
+        final String Costo = String.valueOf(articulos.getCosto() * articulos.getCantidad());
 
         int foto = articulos.getImagen(position);
 
@@ -109,6 +109,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.RecordVi
                     }
                 }
                 holder.Cant.setText(String.valueOf(cantidad[0]));
+                holder.Costo.setText(String.valueOf(finalArticulos.getCosto() * cantidad[0]));
             }
         });
 
@@ -138,6 +139,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.RecordVi
                     }
                 }
                 holder.Cant.setText(String.valueOf(cantidad[0]));
+                holder.Costo.setText(String.valueOf(finalArticulos.getCosto() * cantidad[0]));
 
             }
         });

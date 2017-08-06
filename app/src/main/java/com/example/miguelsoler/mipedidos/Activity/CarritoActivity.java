@@ -2,6 +2,7 @@ package com.example.miguelsoler.mipedidos.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.miguelsoler.mipedidos.Adapters.CarritoAdapter;
+import com.example.miguelsoler.mipedidos.Adapters.RecordAdapter;
 import com.example.miguelsoler.mipedidos.Configs.Config;
 import com.example.miguelsoler.mipedidos.Configs.DBHelper;
 import com.example.miguelsoler.mipedidos.Configs.SessionManager;
@@ -95,31 +97,33 @@ public class CarritoActivity extends AppCompatActivity implements View.OnClickLi
 
         fillRecycler();
 
-
-
+        Calculate();
     }
 
     public void Calculate() {
-        total = Config.getSumas(this);
-        final TimerTask task = new TimerTask() {
+
+        final Handler h = new Handler();
+
+        h.postDelayed(new Runnable() {
             @Override
             public void run() {
+                total = Config.getSumas(CarritoActivity.this);
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Costo.setText(String.valueOf(total));
                     }
                 });
+
+                h.postDelayed(this, TIME_DELAY);
             }
-        };
-        Timer timer = new Timer();
-        timer.schedule(task, TIME_DELAY);
+        }, TIME_DELAY);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.sendPedido:
                 insert(CarritoList);
                 break;
@@ -152,8 +156,7 @@ public class CarritoActivity extends AppCompatActivity implements View.OnClickLi
             syncdata.setNumItems(size);
             dao.create(syncdata);
 
-            for (Carrito car: carritoList)
-            {
+            for (Carrito car : carritoList) {
                 Dao<Carrito, Integer> daoo;
                 daoo = getHelper().getCarritoDao();
                 DeleteBuilder<Carrito, Integer> deleteBuilder = daoo.deleteBuilder();
@@ -161,12 +164,12 @@ public class CarritoActivity extends AppCompatActivity implements View.OnClickLi
                 Log.e("Indice", String.valueOf(car.getId()));
             }
 
+            Config.saveSuma(this, 0);
+
             Intent intent = getIntent();
             finish();
             startActivity(intent);
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             Log.e("Error:", e.toString());
             Log.e("THis", "Error creando calls");
         }
@@ -265,10 +268,24 @@ public class CarritoActivity extends AppCompatActivity implements View.OnClickLi
                 this.finish();
                 return true;
 
+            case R.id.action_records:
+                Intent iz = new Intent(this, RecordActivity.class);
+                startActivity(iz);
+                this.finish();
+                return true;
+
             default:
                 break;
         }
 
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, RecordActivity.class);
+        startActivity(i);
+        this.finish();
     }
 }

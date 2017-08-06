@@ -79,6 +79,6 @@ public class Config {
 
     public static int getSumas(Activity context) {
         SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
-        return pref.getInt("suma", -1);
+        return pref.getInt("suma", 0);
     }
 }

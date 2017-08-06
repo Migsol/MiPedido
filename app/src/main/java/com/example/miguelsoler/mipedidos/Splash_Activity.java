@@ -33,7 +33,7 @@ import static com.example.miguelsoler.mipedidos.Configs.Config.FILE_DIR;
  *******************************************************************************************/
 public class Splash_Activity extends AppCompatActivity {
 
-    private static final long SPLASH_SCREEN_DELAY = 2600;
+    private static final long SPLASH_SCREEN_DELAY = 2000;
     private DBHelper databaseHelper = null;
     private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
 

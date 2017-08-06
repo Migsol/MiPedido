@@ -153,6 +153,12 @@ public class PedidosActivity extends AppCompatActivity {
                 startActivity(i);
                 return true;
 
+            case R.id.action_records:
+                Intent iz = new Intent(this, RecordActivity.class);
+                startActivity(iz);
+                this.finish();
+                return true;
+
             default:
                 break;
         }
@@ -160,4 +166,11 @@ public class PedidosActivity extends AppCompatActivity {
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, RecordActivity.class);
+        startActivity(i);
+        this.finish();
+    }
 }

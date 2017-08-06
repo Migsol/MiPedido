@@ -10,11 +10,15 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,26 +67,38 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_activty);
 
+        session = new SessionManager(this);
+        databaseHelper = OpenHelperManager.getHelper(this, DBHelper.class);
+
+        session.checkLogin();
+
+        if (session.isLoggedIn()){
+            HashMap<String, String> user = session.getUserDetails();
+
+            nombre = user.get(SessionManager.KEY_NAME);
+
+            Code = (TextView) findViewById(R.id.campo_codigovendedor);
+            Nombre = (TextView) findViewById(R.id.campo_nombrevendedor);
+            Apellido = (TextView) findViewById(R.id.campo_apellidovendedor);
+            Email = (TextView) findViewById(R.id.campo_correovendedor);
+            Celular = (TextView) findViewById(R.id.campo_celularvendedor);
+            Device = (TextView) findViewById(R.id.campo_celulardevice);
+            IMEI = (TextView) findViewById(R.id.campo_celularimei);
+
+            fillData();
+        } else {
+            Intent in = new Intent(this, LoginActivity.class);
+            finish();
+            startActivity(in);
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Perfíl");
 
 
-        session = new SessionManager(this);
-        databaseHelper = OpenHelperManager.getHelper(this, DBHelper.class);
-        HashMap<String, String> user = session.getUserDetails();
 
-        nombre = user.get(SessionManager.KEY_NAME);
 
-        Code = (TextView) findViewById(R.id.campo_codigovendedor);
-        Nombre = (TextView) findViewById(R.id.campo_nombrevendedor);
-        Apellido = (TextView) findViewById(R.id.campo_apellidovendedor);
-        Email = (TextView) findViewById(R.id.campo_correovendedor);
-        Celular = (TextView) findViewById(R.id.campo_celularvendedor);
-        Device = (TextView) findViewById(R.id.campo_celulardevice);
-        IMEI = (TextView) findViewById(R.id.campo_celularimei);
-
-        fillData();
 
     }
 
@@ -119,5 +135,43 @@ public class ProfileActivity extends AppCompatActivity {
             OpenHelperManager.releaseHelper();
             databaseHelper = null;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_profile, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.action_pedido:
+                Intent in = new Intent(this, CarritoActivity.class);
+                startActivity(in);
+                return true;
+
+            case R.id.action_records:
+                Intent iz = new Intent(this, RecordActivity.class);
+                startActivity(iz);
+                this.finish();
+                return true;
+
+            default:
+                break;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, RecordActivity.class);
+        startActivity(i);
+        this.finish();
     }
 }
