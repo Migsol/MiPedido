@@ -23,6 +23,8 @@ public class Config {
     public int Suma = 0;
     public boolean change = false;
 
+    private boolean isScanner = false;
+
     public boolean isChange() {
         return change;
     }
@@ -66,7 +68,6 @@ public class Config {
             }
             phrase.append(c);
         }
-
         return phrase.toString();
     }
 
@@ -81,4 +82,29 @@ public class Config {
         SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
         return pref.getInt("suma", 0);
     }
+
+    public static void saveScanner(Activity context, boolean isScanner) {
+        SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("isScanner", isScanner);
+        editor.apply();
+    }
+
+    public static boolean getScanner(Activity context) {
+        SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+        return pref.getBoolean("isScanner", false);
+    }
+
+     public static void saveQR(Activity context, String QRresult) {
+            SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("QRresult", QRresult);
+            editor.apply();
+        }
+
+        public static String getQR(Activity context) {
+            SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+            return pref.getString("QRresult", null);
+        }
+
 }

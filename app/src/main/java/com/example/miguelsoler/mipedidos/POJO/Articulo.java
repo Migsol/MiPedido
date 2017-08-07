@@ -75,6 +75,10 @@ public class Articulo {
         Descripcion = descripcion;
     }
 
+    public int getImagen() {
+        return Imagen;
+    }
+
     public int getImagen(int position) {
         return Imagen;
     }

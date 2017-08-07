@@ -7,4 +7,5 @@
     <string name="action_pedido">Pedidos</string>
     <string name="action_carrito">Mi Carrito</string>
     <string name="action_articulos">Catálogo</string>
+    <string name="action_scan">Escanear QR</string>
 </resources>

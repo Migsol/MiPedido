@@ -11,7 +11,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.miguelsoler.mipedidos.Configs.Config;
 import com.example.miguelsoler.mipedidos.Configs.DBHelper;
 import com.example.miguelsoler.mipedidos.POJO.Articulo;
 import com.example.miguelsoler.mipedidos.POJO.Carrito;
@@ -56,7 +58,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
     @Override
     public void onBindViewHolder(RecordViewHolder holder, final int position) {
-
         Articulo articulos = new Articulo();
         articulos = Articulos.get(position);
 

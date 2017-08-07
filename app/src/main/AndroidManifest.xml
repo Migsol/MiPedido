@@ -36,6 +36,10 @@
         <activity android:name=".Activity.PedidosActivity" >
         </activity>
 
+        <activity android:name=".Configs.ScannerActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

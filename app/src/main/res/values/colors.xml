@@ -3,4 +3,6 @@
     <color name="colorPrimary">#d6cd83</color>
     <color name="colorPrimaryDark">#ccc39a</color>
     <color name="colorAccent">#ede3a6</color>
+    <color name="QRCodeBlackColor">@android:color/black</color>
+    <color name="QRCodeWhiteColor">@android:color/white</color>
 </resources>

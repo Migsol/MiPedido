@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -40,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     private DBHelper databaseHelper = null;
     private EditText Code, Device, IMEI, Nombre, Apellido, Email, Celular;
     private String CodeVndor, Name, Surname, emailname, Cel, Imeicode, devicename;
+
+    private TextInputLayout TlNombre, TlApellido, TlCorreo, TlNumero, TlCodigo;
 
     Button pedido;
     boolean flag = false;
@@ -76,6 +79,12 @@ public class LoginActivity extends AppCompatActivity {
             Device = (EditText) findViewById(R.id.campo_celulardevice);
             IMEI = (EditText) findViewById(R.id.campo_celularimei);
 
+            TlNombre = (TextInputLayout)findViewById(R.id.campo_nombre);
+            TlApellido = (TextInputLayout)findViewById(R.id.campo_apellido);
+            TlCorreo = (TextInputLayout)findViewById(R.id.campo_correo);
+            TlNumero = (TextInputLayout)findViewById(R.id.campo_celular);
+            TlCodigo = (TextInputLayout)findViewById(R.id.campo_codigo);
+
             IMEI.setVisibility(View.GONE);
             Device.setVisibility(View.GONE);
 
@@ -83,7 +92,25 @@ public class LoginActivity extends AppCompatActivity {
             pedido.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onSavePressed();
+
+                    if(Nombre.getText().toString().equals("")){
+                        TlNombre.setError("Por favor Ingrese su nombre");
+                    }
+                    else if(Email.getText().toString().equals("")){
+                        TlCorreo.setError("Por favor Ingrese su correo");
+                    }
+                    else if(Code.getText().toString().equals("")){
+                        TlCodigo.setError("Por favor Ingrese su código");
+                    }
+                    else if(Celular.getText().toString().equals("")){
+                        TlNumero.setError("Por favor Ingrese su número");
+                    }
+                    else if(Apellido.getText().toString().equals("")){
+                        TlApellido.setError("Por favor Ingrese su Apellido");
+                    }
+                    else {
+                        onSavePressed();
+                    }
                 }
             });
         }
@@ -132,9 +159,22 @@ public class LoginActivity extends AppCompatActivity {
                 Imeicode,
                 devicename);
 
+        requestPermissions1();
         Intent i = new Intent(this, Splash_Activity.class);
         startActivity(i);
         this.finish();
+    }
+
+    private void requestPermissions1() {
+
+        final List<String> requiredSDKPermissions = new ArrayList<String>();
+        requiredSDKPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        ActivityCompat.requestPermissions(this,
+                requiredSDKPermissions.toArray(new String[requiredSDKPermissions.size()]),
+                REQUEST_CODE_ASK_PERMISSIONS);
+
+        flag = true;
     }
 
     public void Insert(String code,String name, String surname, String email, String cel, String imei, String device){

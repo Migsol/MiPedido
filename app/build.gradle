@@ -32,4 +32,6 @@ dependencies {
     compile 'io.requery:sqlite-android:3.17.0'
     compile 'com.j256.ormlite:ormlite-android:5.0'
     compile 'com.j256.ormlite:ormlite-core:5.0'
+    compile 'com.google.zxing:core:3.2.1'
+    compile 'com.journeyapps:zxing-android-embedded:3.4.0'
 }

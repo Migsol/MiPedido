@@ -20,6 +20,15 @@
         android:layout_width="wrap_content"
         />
 
+    <item android:id="@+id/action_scan"
+        android:title="@string/action_scan"
+        android:icon="@android:drawable/ic_menu_search"
+        android:orderInCategory="101"
+        app:showAsAction="never"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:layout_width="wrap_content"
+        />
+
     <item android:id="@+id/action_pedido"
         android:title="@string/action_carrito"
         android:icon="@android:drawable/ic_menu_agenda"

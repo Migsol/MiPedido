@@ -15,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.miguelsoler.mipedidos.Adapters.RecordAdapter;
+import com.example.miguelsoler.mipedidos.Configs.Config;
 import com.example.miguelsoler.mipedidos.Configs.DBHelper;
+import com.example.miguelsoler.mipedidos.Configs.ScannerActivity;
 import com.example.miguelsoler.mipedidos.Configs.SessionManager;
 import com.example.miguelsoler.mipedidos.POJO.Articulo;
 import com.example.miguelsoler.mipedidos.R;
@@ -127,8 +129,15 @@ public class RecordActivity extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String searchQuery) {
-                adapter.filter(searchQuery.toString().trim());
-                Articulos.invalidate();
+                boolean qr = Config.getScanner(RecordActivity.this);
+                String Search = Config.getQR(RecordActivity.this);
+                if (qr){
+                    adapter.filter(Search);
+                    Articulos.invalidate();
+                } else {
+                    adapter.filter(searchQuery.toString().trim());
+                    Articulos.invalidate();
+                }
                 return true;
             }
         });
@@ -152,6 +161,12 @@ public class RecordActivity extends AppCompatActivity{
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                return true;
+
+            case R.id.action_scan:
+                Intent sc = new Intent(this, ScannerActivity.class);
+                startActivity(sc);
+                this.finish();
                 return true;
 
             case R.id.action_pedido:
