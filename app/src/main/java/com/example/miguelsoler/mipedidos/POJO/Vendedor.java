@@ -19,6 +19,8 @@ public class Vendedor {
     private String CodigoVendedor;
     @DatabaseField(columnName = "nombres")
     private String Nombres;
+    @DatabaseField(columnName = "password")
+    private String Password;
     @DatabaseField(columnName = "apellidos")
     private String Apellidos;
     @DatabaseField(columnName = "correo")
@@ -29,6 +31,8 @@ public class Vendedor {
     private String DeviceName;
     @DatabaseField(columnName = "celular")
     private String Celular;
+    @DatabaseField(columnName = "saldo")
+    private int Saldo;
 
 
     public Vendedor() {
@@ -42,6 +46,7 @@ public class Vendedor {
         Imei = imei;
         DeviceName = deviceName;
         Celular = celular;
+        Saldo = 0;
     }
 
     public static String getID() {
@@ -70,6 +75,14 @@ public class Vendedor {
 
     public void setNombres(String nombres) {
         Nombres = nombres;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String password) {
+        Password = password;
     }
 
     public String getApellidos() {
@@ -110,5 +123,13 @@ public class Vendedor {
 
     public void setCelular(String celular) {
         Celular = celular;
+    }
+
+    public int getSaldo() {
+        return Saldo;
+    }
+
+    public void setSaldo(int saldo) {
+        Saldo = saldo;
     }
 }

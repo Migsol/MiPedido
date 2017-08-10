@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.example.miguelsoler.mipedidos.Activity.CarritoActivity;
 import com.example.miguelsoler.mipedidos.Configs.Config;
 import com.example.miguelsoler.mipedidos.Configs.DBHelper;
 import com.example.miguelsoler.mipedidos.POJO.Carrito;
@@ -36,6 +37,8 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.RecordVi
     private ArrayList<Carrito> arraylist;
     private Activity activity;
 
+    private CarritoActivity carritoActivity;
+
     private int Sum;
 
     public CarritoAdapter(Activity AC, List<Carrito> A) {
@@ -43,6 +46,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.RecordVi
         this.Articulos = A;
         arraylist = new ArrayList<Carrito>();
         arraylist.addAll(Articulos);
+        carritoActivity = new CarritoActivity();
     }
 
     private DBHelper databaseHelper = null;
@@ -131,6 +135,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.RecordVi
                         }
 
                         Sum -= finalArticulos.getCantidad() * finalArticulos.getCosto();
+                        if (Sum <= 0) Sum = 0;
                         Config.saveSuma(activity, Sum);
                         Log.e("Sumatoria", String.valueOf(Sum));
 
@@ -144,11 +149,14 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.RecordVi
             }
         });
 
-        final Carrito finalArticulos1 = articulos;
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                delete(finalArticulos1.getId(), position);
+                delete(finalArticulos.getId(), position);
+                Sum -= finalArticulos.getCantidad() * finalArticulos.getCosto();
+                if (Sum <= 0) Sum = 0;
+                Config.saveSuma(activity, Sum);
+                Log.e("Sumatoria", String.valueOf(Sum));
             }
         });
 
@@ -161,6 +169,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.RecordVi
             dao = getHelper().getCarritoDao();
             DeleteBuilder<Carrito, Integer> deleteBuilder = dao.deleteBuilder();
             dao.deleteById(id);
+
             Articulos.remove(position);
             notifyItemRemoved(position);
         } catch (SQLException e) {

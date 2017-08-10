@@ -4,8 +4,9 @@
     <string name="action_profile">Mi Perfil</string>
     <string name="action_pedidos">Mis Pedidos</string>
     <string name="action_update">Actualizar</string>
-    <string name="action_pedido">Pedidos</string>
+    <string name="action_pedido">Mis Pedidos</string>
     <string name="action_carrito">Mi Carrito</string>
     <string name="action_articulos">Catálogo</string>
+    <string name="action_logout">Cerrar Sesiòn</string>
     <string name="action_scan">Escanear QR</string>
 </resources>

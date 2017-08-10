@@ -23,6 +23,7 @@ import com.example.miguelsoler.mipedidos.Adapters.CarritoAdapter;
 import com.example.miguelsoler.mipedidos.Adapters.RecordAdapter;
 import com.example.miguelsoler.mipedidos.Configs.Config;
 import com.example.miguelsoler.mipedidos.Configs.DBHelper;
+import com.example.miguelsoler.mipedidos.Configs.ScannerActivity;
 import com.example.miguelsoler.mipedidos.Configs.SessionManager;
 import com.example.miguelsoler.mipedidos.POJO.Carrito;
 import com.example.miguelsoler.mipedidos.POJO.Pedido;
@@ -108,13 +109,13 @@ public class CarritoActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void run() {
                 total = Config.getSumas(CarritoActivity.this);
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Costo.setText(String.valueOf(total));
                     }
                 });
+
 
                 h.postDelayed(this, TIME_DELAY);
             }
@@ -256,9 +257,21 @@ public class CarritoActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 return true;
 
+            case R.id.action_records:
+                Intent iz = new Intent(this, RecordActivity.class);
+                startActivity(iz);
+                this.finish();
+                return true;
+
             case R.id.action_pedido:
                 Intent in = new Intent(this, PedidosActivity.class);
                 startActivity(in);
+                this.finish();
+                return true;
+
+            case R.id.action_carrito:
+                Intent car = new Intent(this, CarritoActivity.class);
+                startActivity(car);
                 this.finish();
                 return true;
 
@@ -268,10 +281,14 @@ public class CarritoActivity extends AppCompatActivity implements View.OnClickLi
                 this.finish();
                 return true;
 
-            case R.id.action_records:
-                Intent iz = new Intent(this, RecordActivity.class);
-                startActivity(iz);
+            case R.id.action_scan:
+                Intent sc = new Intent(this, ScannerActivity.class);
+                startActivity(sc);
                 this.finish();
+                return true;
+
+            case R.id.action_logout:
+                session.logoutUser();
                 return true;
 
             default:

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -17,12 +16,10 @@ import com.example.miguelsoler.mipedidos.Activity.RecordActivity;
 import com.example.miguelsoler.mipedidos.POJO.Articulo;
 import com.example.miguelsoler.mipedidos.POJO.Carrito;
 import com.example.miguelsoler.mipedidos.R;
-import com.example.miguelsoler.mipedidos.Splash_Activity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.field.types.IntegerObjectType;
 import com.j256.ormlite.stmt.UpdateBuilder;
 
 import java.sql.SQLException;
@@ -63,14 +60,12 @@ public class ScannerActivity extends AppCompatActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             if (result.getContents() == null) {
-
                 Toast.makeText(activity, "Canceló el Escaneo", Toast.LENGTH_LONG).show();
                 flag = false;
                 Config.saveScanner(activity, false);
                 Intent intent = new Intent(activity, RecordActivity.class);
                 finish();
                 startActivity(intent);
-
             } else {
 
                 Toast.makeText(activity, result.getContents(), Toast.LENGTH_LONG).show();
@@ -78,8 +73,8 @@ public class ScannerActivity extends AppCompatActivity {
                 flag = true;
                 Config.saveScanner(activity, true);
                 Config.saveQR(activity, result.getContents());
-
                 final Dialog dialog = new Dialog(activity);
+
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.custom_dialog);
                 dialog.setCancelable(false);

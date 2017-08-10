@@ -12,6 +12,7 @@ import android.content.SharedPreferences.Editor;
 
 
 import com.example.miguelsoler.mipedidos.Activity.LoginActivity;
+import com.example.miguelsoler.mipedidos.Activity.RegisterActivity;
 
 import java.util.HashMap;
 
@@ -36,11 +37,7 @@ public class SessionManager {
 
     // User name (make variable public to access from outside)
     public static final String KEY_NAME = "name";
-    public static final String KEY_SURNAME = "surname";
-    public static final String KEY_EMAIL = "email";
-    public static final String KEY_CELPHONE = "celphone";
-    public static final String KEY_IMEI = "imei";
-    public static final String KEY_DEVICE = "devicename";
+    public static final String KEY_PASS = "password";
     public static final String KEY_CODE = "code";
 
 
@@ -50,15 +47,11 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String code,String name, String surname, String email, String cel, String imei, String device){
+    public void createLoginSession(String code,String name, String pass){
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_CODE, code);
         editor.putString(KEY_NAME, name);
-        editor.putString(KEY_SURNAME, surname);
-        editor.putString(KEY_EMAIL, email);
-        editor.putString(KEY_CELPHONE, cel);
-        editor.putString(KEY_IMEI, imei);
-        editor.putString(KEY_DEVICE, device);
+        editor.putString(KEY_PASS, pass);
         editor.commit();
     }
 
@@ -84,13 +77,9 @@ public class SessionManager {
 
         user.put(KEY_CODE, pref.getString(KEY_CODE, null));
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
-        user.put(KEY_SURNAME, pref.getString(KEY_SURNAME, null));
-        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
-        user.put(KEY_CELPHONE, pref.getString(KEY_CELPHONE, null));
-        user.put(KEY_IMEI, pref.getString(KEY_IMEI, null));
-        user.put(KEY_DEVICE, pref.getString(KEY_DEVICE, null));
+        user.put(KEY_PASS, pref.getString(KEY_PASS, null));
 
-        // return user
+
         return user;
     }
 
@@ -101,6 +90,11 @@ public class SessionManager {
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         _context.startActivity(i);
+    }
+
+    public  void  cleanUser(){
+        editor.clear();
+        editor.commit();
     }
     public boolean isLoggedIn(){
         return pref.getBoolean(IS_LOGIN, false);

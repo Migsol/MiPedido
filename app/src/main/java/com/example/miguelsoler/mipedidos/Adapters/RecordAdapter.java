@@ -75,6 +75,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
 
         holder.Carrito.setVisibility(View.VISIBLE);
 
+        final String[] Cost = {String.valueOf(Costo)};
+        final Articulo finalArticulos = articulos;
         holder.Carrito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,6 +107,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                             C[0] = C[0] + 1;
                         }
                         cantidad.setText(String.valueOf(C[0]));
+                        Cost[0] = String.valueOf(C[0] * Integer.parseInt(Costo));
+                        Costos.setText(Cost[0]);
                     }
                 });
 
@@ -115,11 +119,13 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                             C[0] = C[0] - 1;
                         }
                         cantidad.setText(String.valueOf(C[0]));
+                        Cost[0] = String.valueOf(C[0] * Integer.parseInt(Costo));
+                        Costos.setText(Cost[0]);
                     }
                 });
 
                 cantidad.setText(String.valueOf(C[0]));
-                Costos.setText(Costo);
+                Costos.setText(Cost[0]);
                 Nombre.setText(Name);
                 Foto.setImageResource(foto);
 
@@ -129,7 +135,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.RecordView
                     public void onClick(View v) {
 
                         ar.setCantidad(Integer.parseInt(cantidad.getText().toString()));
-
                         try {
                             boolean update = false;
                             Dao<Carrito, Integer> dao;

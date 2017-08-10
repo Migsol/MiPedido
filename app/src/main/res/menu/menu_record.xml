@@ -20,9 +20,19 @@
         android:layout_width="wrap_content"
         />
 
-    <item android:id="@+id/action_scan"
-        android:title="@string/action_scan"
-        android:icon="@android:drawable/ic_menu_search"
+
+    <item android:id="@+id/action_records"
+        android:title="@string/action_articulos"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:orderInCategory="101"
+        app:showAsAction="never"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:layout_width="wrap_content"
+        />
+
+    <item android:id="@+id/action_carrito"
+        android:title="@string/action_carrito"
+        android:icon="@android:drawable/ic_menu_agenda"
         android:orderInCategory="101"
         app:showAsAction="never"
         app:actionViewClass="android.support.v7.widget.SearchView"
@@ -30,7 +40,7 @@
         />
 
     <item android:id="@+id/action_pedido"
-        android:title="@string/action_carrito"
+        android:title="@string/action_pedido"
         android:icon="@android:drawable/ic_menu_agenda"
         android:orderInCategory="101"
         app:showAsAction="never"
@@ -40,6 +50,24 @@
 
     <item android:id="@+id/action_profile"
         android:title="@string/action_profile"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:orderInCategory="101"
+        app:showAsAction="never"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:layout_width="wrap_content"
+        />
+
+    <item android:id="@+id/action_scan"
+        android:title="@string/action_scan"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:orderInCategory="101"
+        app:showAsAction="never"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:layout_width="wrap_content"
+        />
+
+    <item android:id="@+id/action_logout"
+        android:title="@string/action_logout"
         android:icon="@android:drawable/ic_menu_agenda"
         android:orderInCategory="101"
         app:showAsAction="never"
